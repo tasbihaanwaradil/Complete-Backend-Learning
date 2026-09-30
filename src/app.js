@@ -43,4 +43,19 @@ app.delete("/notes/:index", (req, res) => {
   });
 });
 
+//update notes
+app.patch("/notes/:index", (req, res) => {
+  const index = req.params.index;
+  const description = req.body.description;
+  const title = req.body.title;
+
+  notes[index].description = description;
+  notes[index].title = title;
+
+  return res.status(200).json({
+    message: "description updated successfully",
+    notes,
+  });
+});
+
 export default app;
