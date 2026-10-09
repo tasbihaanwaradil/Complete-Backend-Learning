@@ -18,4 +18,45 @@ app.post("/notes", async (req, res) => {
   });
 });
 
+// Get notes
+app.get("/notes", async (req, res) => {
+  const getAllNotes = await noteModel.find();
+
+  res.status(200).json({
+    message: "Notes fetched successfully",
+    getAllNotes,
+  });
+});
+
+// Get note by id
+app.get("/notes/:id", async (req, res) => {
+  const id = req.params.id;
+  const getNoteById = await noteModel.findOne({
+    _id: id,
+  });
+
+  res.status(200).json({
+    message: "note fetch successfully",
+    getNoteById,
+  });
+});
+
+//delete a note
+app.delete("/notes/:id", async (req, res) => {
+  const id = req.params.id;
+  const deleteNoteById = await noteModel.findOneAndDelete({
+    _id: id,
+  });
+
+  res.status(200).json({
+    message: "note deleted",
+    deleteNoteById,
+  });
+});
+
+
+
 export default app;
+
+//find() always returns array of abject []
+//findOne() {} else null
