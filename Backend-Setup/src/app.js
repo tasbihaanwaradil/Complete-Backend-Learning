@@ -54,7 +54,20 @@ app.delete("/notes/:id", async (req, res) => {
   });
 });
 
+//update note
+app.patch("/notes/:id", async (req, res) => {
+  const updatedNote = await noteModel.findOneAndUpdate(
+    { _id: req.params.id },
+    { description: req.body.description },
+    { title: req.body.title },
+    { new: true, runValidators: true },
+  );
 
+  res.status(200).json({
+    message: "Note is updated sucessfully",
+    updatedNote,
+  });
+});
 
 export default app;
 
